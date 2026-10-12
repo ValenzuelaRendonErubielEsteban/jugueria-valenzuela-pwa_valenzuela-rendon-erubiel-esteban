@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Juguería Valenzuela — Jugos y licuados naturales</title>
+  <meta name="description" content="Juguería Valenzuela: catálogo de jugos, licuados, smoothies, aguas frescas y frutas. Productos naturales y frescos en Hermosillo, Sonora.">
+
+  <!-- Se activan en avances posteriores -->
+  <!-- <link rel="manifest" href="manifest.json"> -->
+  <!-- <meta name="theme-color" content="#4a7a1f"> -->
+  <!-- <link rel="icon" href="icons/icon.svg" type="image/svg+xml"> -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"> -->
+
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- ============ APP SHELL ============ -->
+
+  <header class="appbar">
+    <div class="appbar__inner">
+      <a class="marca" href="#inicio" aria-label="Juguería Valenzuela, inicio">
+        <img src="img/logo-icono.png" alt="Logo Juguería Valenzuela" height="44">
+        <span>Juguería Valenzuela</span>
+      </a>
+      <a class="appbar__enlace" href="#catalogo-seccion">Catálogo</a>
+    </div>
+  </header>
+
+  <main id="inicio">
+
+    <!-- Portada -->
+    <section class="portada">
+      <div class="portada__texto">
+        <h2>Jugos y licuados hechos al momento</h2>
+        <p>Fruta fresca, sin conservadores. Elige tu bebida favorita y agrégala a tu pedido.</p>
+        <a class="portada__boton" href="#catalogo-seccion">Ver el catálogo</a>
+      </div>
+      <img class="portada__logo" src="img/logo.png" alt="Juguería Valenzuela, productos naturales y frescos" width="280">
+    </section>
+
+    <!-- Catálogo (CSR: lo llena js/csr.js) -->
+    <section class="catalogo" id="catalogo-seccion">
+      <h2>Nuestro catálogo</h2>
+      <p class="catalogo__intro">Jugos, licuados, smoothies, aguas frescas y fruta.</p>
+      <div id="catalogo" class="grid" aria-busy="true" aria-label="Cargando catálogo">
+        <p>Cargando catálogo…</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pie">
+    <div class="pie__inner">
+      <strong>Juguería Valenzuela</strong>
+      <span>Productos naturales y frescos</span>
+      <span>Hermosillo, Sonora</span>
+    </div>
+  </footer>
+
+  <!-- <script src="js/carrito.js"></script> -->
+  <script src="js/csr.js"></script>
+  <!-- <script src="js/notificaciones.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script> -->
+  <!-- <script src="js/geolocalizacion.js"></script> -->
+  <!-- <script src="js/app.js"></script> -->
+  <!--
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
+  -->
+</body>
+</html>
