@@ -6,7 +6,7 @@
   <title>Juguería Valenzuela — Jugos y licuados naturales</title>
   <meta name="description" content="Juguería Valenzuela: catálogo de jugos, licuados, smoothies, aguas frescas y frutas. Productos naturales y frescos en Hermosillo, Sonora.">
 
-  <!-- Se activan en avances posteriores -->
+  <!-- Se activan en el avance 3 -->
   <!-- <link rel="manifest" href="manifest.json"> -->
   <!-- <meta name="theme-color" content="#4a7a1f"> -->
   <!-- <link rel="icon" href="icons/icon.svg" type="image/svg+xml"> -->
@@ -24,7 +24,10 @@
         <img src="img/logo-icono.png" alt="Logo Juguería Valenzuela" height="44">
         <span>Juguería Valenzuela</span>
       </a>
-      <a class="appbar__enlace" href="#catalogo-seccion">Catálogo</a>
+      <nav class="appbar__acciones">
+        <a class="appbar__enlace" href="#catalogo-seccion">Catálogo</a>
+        <a class="carrito-btn" href="#carrito-seccion">Carrito <span id="carrito-contador" class="carrito-btn__num">0</span></a>
+      </nav>
     </div>
   </header>
 
@@ -40,13 +43,43 @@
       <img class="portada__logo" src="img/logo.png" alt="Juguería Valenzuela, productos naturales y frescos" width="280">
     </section>
 
-    <!-- Catálogo (CSR: lo llena js/csr.js) -->
+    <!-- ---- Sección 1: Catálogo (CSR) ---- -->
     <section class="catalogo" id="catalogo-seccion">
       <h2>Nuestro catálogo</h2>
       <p class="catalogo__intro">Jugos, licuados, smoothies, aguas frescas y fruta.</p>
+      <!-- Este div empieza SIN productos a propósito: csr.js lo llena después de que la
+           página cargó (CSR). Las tarjetas "esqueleto" solo apartan el espacio. -->
       <div id="catalogo" class="grid" aria-busy="true" aria-label="Cargando catálogo">
-        <p>Cargando catálogo…</p>
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
       </div>
+    </section>
+
+    <!-- ---- Sección 2: Carrito ---- -->
+    <section class="carrito" id="carrito-seccion">
+      <h2>Carrito</h2>
+      <ul id="carrito-lista"></ul>
+      <p class="carrito__total">Total: $<span id="carrito-total">0</span></p>
+      <button id="btn-sincronizar" class="boton-secundario" type="button">Sincronizar carrito</button>
+      <p id="carrito-mensaje" class="mensaje"></p>
     </section>
 
   </main>
@@ -59,7 +92,8 @@
     </div>
   </footer>
 
-  <!-- <script src="js/carrito.js"></script> -->
+  <!-- carrito.js va ANTES de csr.js: csr.js llama a agregarAlCarrito() -->
+  <script src="js/carrito.js"></script>
   <script src="js/csr.js"></script>
   <!-- <script src="js/notificaciones.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script> -->

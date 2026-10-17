@@ -13,7 +13,7 @@ PWA de práctica de la Unidad 2 (Aplicaciones Web Progresivas): catálogo de jug
 ## Historial de avances
 | Avance | Hash del commit entregado | Fecha |
 |---|---|---|
-| 1 | HASH_AQUI | 11/10/2026 |
+| 1 | be5e7c1 | 11/10/2026 |
 | 2 | | |
 | 3 | | |
 | 4 | | |
