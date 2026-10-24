@@ -15,7 +15,7 @@ PWA de práctica de la Unidad 2 (Aplicaciones Web Progresivas): catálogo de jug
 |---|---|---|
 | 1 | be5e7c1 | 11/10/2026 |
 | 2 | d66d2b7 | 16/10/2026 |
-| 3 | | |
+| 3 | 1145741 | 24/10/2026 |
 | 4 | | |
 
 ## Comparación SSR vs CSR
