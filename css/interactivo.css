@@ -1,0 +1,123 @@
+/* interactivo.css — capa de diseño: animaciones y microinteracciones.
+   Solo anima transform y opacity (no mueven el layout, así el CLS sigue en 0). */
+:root {
+  --sombra-suave: 0 6px 18px rgba(52, 86, 26, .12);
+  --sombra-alta: 0 14px 30px rgba(52, 86, 26, .22);
+  --curva: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ---------- Encabezado ---------- */
+.appbar { transition: box-shadow .3s var(--curva); }
+.appbar--sombra { box-shadow: 0 6px 20px rgba(0, 0, 0, .12); }
+.carrito-btn { transition: transform .2s var(--curva); }
+.carrito-btn:hover { transform: translateY(-2px); }
+.carrito-btn__num.bump { animation: rebote .5s var(--curva); }
+.estado-conexion {
+    transition: color .3s;
+}
+
+/* ---------- Portada ---------- */
+.portada {
+  position: relative;
+  overflow: hidden;
+}
+.portada__texto, .portada__marco { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .portada__marco { animation: flotar 6s ease-in-out infinite; }
+}
+.fruta-flota {
+  position: absolute;
+  font-size: 2rem;
+  opacity: .55;
+  filter: blur(.6px);
+  pointer-events: none;
+  user-select: none;
+  animation: flotar 6s ease-in-out infinite;
+}
+.portada__boton { transition: transform .25s var(--curva), box-shadow .25s, background .2s; }
+.portada__boton:hover { transform: translateY(-3px); box-shadow: var(--sombra-alta); }
+
+/* ---------- Catálogo ---------- */
+.filtro { border-radius: 999px; transition: transform .2s var(--curva), background .2s, color .2s; }
+.filtro:hover { transform: translateY(-2px); }
+
+.producto {
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s var(--curva), box-shadow .3s var(--curva), border-color .3s;
+}
+/* cada tarjeta entra con un pequeño retraso (--i lo pone interactivo.js) */
+.producto:not(.producto--cargando) {
+  animation: aparecer .55s var(--curva) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+.producto:not(.producto--cargando):hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-alta);
+  border-color: var(--verde);
+}
+.producto button:not(:disabled) { transition: transform .2s var(--curva), box-shadow .2s, background .2s; }
+.producto button:not(:disabled):hover { transform: translateY(-2px); box-shadow: var(--sombra-suave); }
+button:active { transform: scale(.96); }
+
+.insignia {
+  position: absolute;
+  top: .6rem;
+  left: .6rem;
+  z-index: 2;
+  background: var(--naranja-texto);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: .15rem .6rem;
+  border-radius: 999px;
+  box-shadow: var(--sombra-suave);
+}
+.insignia--agotado { background: #5b6370; }
+
+/* ---------- Carrito, ubicación y mapa ---------- */
+.carrito__total { transition: transform .3s var(--curva); }
+.carrito__total.bump { animation: rebote .5s var(--curva); }
+.mapa { box-shadow: var(--sombra-suave); overflow: hidden; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--curva), transform .7s var(--curva); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ---------- Avisos (toasts) ---------- */
+.toasts {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: grid;
+  gap: .5rem;
+  max-width: min(92vw, 320px);
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--verde-oscuro);
+  color: #fff;
+  padding: .7rem 1rem;
+  border-radius: 12px;
+  box-shadow: var(--sombra-alta);
+  animation: entrar .4s var(--curva) both;
+}
+.toast--salir { animation: salir .3s ease-in both; }
+
+/* ---------- Animaciones ---------- */
+@keyframes aparecer { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes flotar { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-12px) rotate(3deg); } }
+@keyframes rebote { 0% { transform: scale(1); } 35% { transform: scale(1.35); } 70% { transform: scale(.92); } 100% { transform: scale(1); } }
+@keyframes entrar { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: none; } }
+@keyframes salir { to { opacity: 0; transform: translateX(30px); } }
+
+@media (max-width: 600px) {
+  .fruta-flota { font-size: 1.4rem; opacity: .6; }
+  .toasts { left: 1rem; right: 1rem; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}

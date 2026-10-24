@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "nombre": "Jugo de naranja",
+    "categoria": "Jugos y aguas",
+    "precio": 35,
+    "stock": 50,
+    "imagen": "img/jugo-naranja.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Jugo verde",
+    "categoria": "Jugos y aguas",
+    "precio": 45,
+    "stock": 40,
+    "imagen": "img/jugo-verde.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Jugo de zanahoria",
+    "categoria": "Jugos y aguas",
+    "precio": 35,
+    "stock": 40,
+    "imagen": "img/jugo-zanahoria.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Jugo de betabel",
+    "categoria": "Jugos y aguas",
+    "precio": 40,
+    "stock": 30,
+    "imagen": "img/jugo-betabel.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Licuado de fresa",
+    "categoria": "Licuados y smoothies",
+    "precio": 50,
+    "stock": 35,
+    "imagen": "img/licuado-fresa.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Licuado de plátano",
+    "categoria": "Licuados y smoothies",
+    "precio": 50,
+    "stock": 35,
+    "imagen": "img/licuado-platano.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Licuado de mango",
+    "categoria": "Licuados y smoothies",
+    "precio": 55,
+    "stock": 30,
+    "imagen": "img/licuado-mango.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Smoothie de frutos rojos",
+    "categoria": "Licuados y smoothies",
+    "precio": 65,
+    "stock": 25,
+    "imagen": "img/smoothie-frutos-rojos.jpg"
+  },
+  {
+    "id": 9,
+    "nombre": "Smoothie tropical",
+    "categoria": "Licuados y smoothies",
+    "precio": 65,
+    "stock": 25,
+    "imagen": "img/smoothie-tropical.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "Agua fresca de jamaica",
+    "categoria": "Jugos y aguas",
+    "precio": 25,
+    "stock": 60,
+    "imagen": "img/agua-jamaica.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Agua fresca de limón",
+    "categoria": "Jugos y aguas",
+    "precio": 25,
+    "stock": 60,
+    "imagen": "img/agua-limon.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Vaso de fruta con chile",
+    "categoria": "Frutas y extras",
+    "precio": 45,
+    "stock": 30,
+    "imagen": "img/vaso-fruta.jpg"
+  },
+  {
+    "id": 13,
+    "nombre": "Ensalada de frutas",
+    "categoria": "Frutas y extras",
+    "precio": 55,
+    "stock": 20,
+    "imagen": "img/ensalada-frutas.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Shot de jengibre",
+    "categoria": "Frutas y extras",
+    "precio": 20,
+    "stock": 50,
+    "imagen": "img/shot-jengibre.jpg"
+  },
+  {
+    "id": 15,
+    "nombre": "Granola con yogurt",
+    "categoria": "Frutas y extras",
+    "precio": 50,
+    "stock": 20,
+    "imagen": "img/granola-yogurt.jpg"
+  }
+]

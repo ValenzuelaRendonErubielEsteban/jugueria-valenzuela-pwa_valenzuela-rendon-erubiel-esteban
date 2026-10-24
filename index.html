@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Juguería Valenzuela — Jugos y licuados naturales</title>
+  <meta name="description" content="Juguería Valenzuela: catálogo de jugos, licuados, smoothies, aguas frescas y frutas. Productos naturales y frescos en Hermosillo, Sonora.">
+
+  <!-- Se activan en el avance 3 -->
+  <!-- <link rel="manifest" href="manifest.json"> -->
+  <!-- <meta name="theme-color" content="#4a7a1f"> -->
+  <!-- <link rel="icon" href="icons/icon.svg" type="image/svg+xml"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/interactivo.css">
+</head>
+<body>
+
+  <!-- ============ APP SHELL ============ -->
+
+  <header class="appbar">
+    <div class="appbar__inner">
+      <a class="marca" href="#inicio" aria-label="Juguería Valenzuela, inicio">
+        <img src="img/logo-icono.png" alt="Logo Juguería Valenzuela" height="44">
+        <span>Juguería Valenzuela</span>
+      </a>
+      <nav class="appbar__acciones">
+        <a class="appbar__enlace" href="#catalogo-seccion">Catálogo</a>
+        <span id="estado-conexion" class="estado-conexion" role="status" aria-live="polite">● Conectado</span>
+        <a class="carrito-btn" href="#carrito-seccion">Carrito <span id="carrito-contador" class="carrito-btn__num">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+
+    <!-- Portada -->
+    <section class="portada">
+      <div class="portada__texto">
+        <span class="etiqueta">🌿 Hermosillo, Sonora · Productos naturales</span>
+        <h2>Jugos y licuados <em>hechos al momento</em></h2>
+        <p>Fruta fresca, sin conservadores. Elige tu bebida favorita y agrégala a tu pedido.</p>
+        <div class="portada__acciones">
+          <a class="portada__boton" href="#catalogo-seccion">Ver el catálogo</a>
+          <a class="portada__enlace" href="#nosotros">Conócenos →</a>
+        </div>
+        <ul class="portada__datos">
+          <li><strong data-contar="15">15</strong><span>bebidas y extras</span></li>
+          <li><strong data-contar="100" data-sufijo="%">100%</strong><span>fruta natural</span></li>
+          <li><strong>0</strong><span>conservadores</span></li>
+        </ul>
+      </div>
+      <div class="portada__marco">
+        <img class="portada__logo" src="img/logo.png" alt="Juguería Valenzuela, productos naturales y frescos" width="280" height="327">
+        <span class="chip chip--1" aria-hidden="true">🍊 Fruta fresca</span>
+        <span class="chip chip--2" aria-hidden="true">🌱 Sin conservadores</span>
+        <span class="chip chip--3" aria-hidden="true">⚡ Al momento</span>
+      </div>
+    </section>
+
+    <!-- ---- Sobre nosotros (pestañas) ---- -->
+    <section class="nosotros" id="nosotros" aria-labelledby="nosotros-titulo">
+      <span class="etiqueta">Sobre nosotros</span>
+      <h2 id="nosotros-titulo">Frescura de Sonora en cada vaso</h2>
+      <div class="pestanas" role="tablist" aria-label="Sobre Juguería Valenzuela">
+        <button type="button" role="tab" id="tab-quienes" aria-controls="panel-quienes" aria-selected="true">Quiénes somos</button>
+        <button type="button" role="tab" id="tab-hacemos" aria-controls="panel-hacemos" aria-selected="false" tabindex="-1">Cómo lo hacemos</button>
+        <button type="button" role="tab" id="tab-pedir" aria-controls="panel-pedir" aria-selected="false" tabindex="-1">Cómo pedir</button>
+      </div>
+      <div class="paneles">
+        <div role="tabpanel" id="panel-quienes" aria-labelledby="tab-quienes">
+          <p>Somos Juguería Valenzuela, un negocio de Hermosillo, Sonora, que prepara jugos, licuados, smoothies, aguas frescas y fruta con ingredientes naturales, pensados para refrescarte en el calor del desierto.</p>
+          <ul class="valores">
+            <li class="valor"><span class="valor__icono" aria-hidden="true">🍊</span><strong>Ingredientes frescos</strong><span>Fruta y verdura de verdad, sin saborizantes artificiales.</span></li>
+            <li class="valor"><span class="valor__icono" aria-hidden="true">🌱</span><strong>Sin conservadores</strong><span>Solo lo que tu bebida necesita para saber increíble.</span></li>
+            <li class="valor"><span class="valor__icono" aria-hidden="true">☀️</span><strong>Hecho para el calor</strong><span>Bebidas frías y ligeras para los días de sol en Hermosillo.</span></li>
+          </ul>
+        </div>
+        <div role="tabpanel" id="panel-hacemos" aria-labelledby="tab-hacemos" hidden>
+          <p>Cada bebida se prepara en el momento en que la pides, para que llegue a tu mano con todo su sabor y frescura.</p>
+          <ul class="valores">
+            <li class="valor"><span class="valor__icono" aria-hidden="true">🧺</span><strong>1. Elegimos la fruta</strong><span>Seleccionamos fruta y verdura en su mejor punto.</span></li>
+            <li class="valor"><span class="valor__icono" aria-hidden="true">🥤</span><strong>2. La preparamos</strong><span>Exprimimos o licuamos al momento, sin dejar nada hecho de antes.</span></li>
+            <li class="valor"><span class="valor__icono" aria-hidden="true">🧊</span><strong>3. La servimos fría</strong><span>Lista para disfrutar, con su toque final de fruta o hierbabuena.</span></li>
+          </ul>
+        </div>
+        <div role="tabpanel" id="panel-pedir" aria-labelledby="tab-pedir" hidden>
+          <p>Armar tu pedido es muy fácil, y funciona incluso sin conexión: tu carrito se guarda y se sincroniza cuando vuelva el internet.</p>
+          <ul class="valores">
+            <li class="valor"><span class="valor__icono" aria-hidden="true">👀</span><strong>1. Elige</strong><span>Explora el catálogo y filtra por categoría.</span></li>
+            <li class="valor"><span class="valor__icono" aria-hidden="true">🛒</span><strong>2. Agrega al carrito</strong><span>Ajusta cantidades y revisa tu total al instante.</span></li>
+            <li class="valor"><span class="valor__icono" aria-hidden="true">📍</span><strong>3. Visítanos</strong><span>Consulta tu distancia y ruta hasta la sucursal.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- Producto estrella (lo llena js/interactivo.js con datos del catálogo) ---- -->
+    <section class="estrella" id="estrella" aria-label="Producto estrella">
+      <div class="estrella__media" id="estrella-media"></div>
+      <div class="estrella__texto">
+        <span class="estrella__etiqueta">⭐ Producto estrella</span>
+        <h2 id="estrella-nombre">&nbsp;</h2>
+        <p>El favorito de la casa: preparado al momento, con fruta fresca y sin conservadores.</p>
+        <button id="estrella-agregar" class="estrella__boton" type="button" disabled>Agregar al carrito</button>
+      </div>
+    </section>
+
+    <!-- ---- Sección 1: Catálogo (CSR) ---- -->
+    <section class="catalogo" id="catalogo-seccion">
+      <h2>Nuestro catálogo</h2>
+      <p class="catalogo__intro">Jugos, licuados, smoothies, aguas frescas y fruta.</p>
+     <div id="catalogo" class="grid" aria-busy="true" aria-label="Cargando catálogo">
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
+        <div class="producto producto--cargando" aria-hidden="true">
+          <div class="producto__foto"></div>
+          <strong>&nbsp;</strong> <span class="precio">&nbsp;</span> <p>&nbsp;</p>
+          <button type="button" disabled>Agregar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- Sección 2: Carrito ---- -->
+    <section class="carrito" id="carrito-seccion">
+      <h2>Carrito</h2>
+      <ul id="carrito-lista"></ul>
+      <p class="carrito__total">Total: $<span id="carrito-total">0</span></p>
+      <button id="btn-vaciar" class="boton-fantasma" type="button">Vaciar carrito</button>
+      <button id="btn-sincronizar" class="boton-secundario" type="button">Sincronizar carrito</button>
+      <p id="carrito-mensaje" class="mensaje"></p>
+
+      <button id="btn-notificaciones" class="boton-secundario" type="button">Activar notificaciones</button>
+      <p id="notif-estado" class="mensaje"></p>
+    </section>
+
+    <!-- ---- Sección 3: Ubicación ---- -->
+    <section class="ubicacion" id="ubicacion-seccion">
+      <h2>Encuéntranos</h2>
+      <button id="btn-ubicacion" class="boton-secundario" type="button">Ver mi distancia a la sucursal</button>
+      <p id="ubicacion-texto" class="mensaje"></p>
+      <div id="mapa" class="mapa" aria-label="Mapa con la ubicación de la sucursal"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie">
+    <div class="pie__inner">
+      <strong>Juguería Valenzuela</strong>
+      <span>Productos naturales y frescos</span>
+      <span>Hermosillo, Sonora</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="js/notificaciones.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/csr.js"></script>
+  <script src="js/geolocalizacion.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/interactivo.js"></script>
+
+</body>
+</html>

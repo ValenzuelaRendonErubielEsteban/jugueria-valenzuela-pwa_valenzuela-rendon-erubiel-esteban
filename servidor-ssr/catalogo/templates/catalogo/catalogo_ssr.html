@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Catálogo (SSR) — Juguería Valenzuela</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f7faf0; color: #1d2b20; margin: 2rem; }
+    h1 { color: #34561a; }
+    ul { list-style: none; padding: 0; }
+    li { background: #fff; border: 1px solid #dbe6cf; border-radius: 8px; padding: .6rem 1rem; margin-bottom: .4rem; }
+    .precio { font-weight: bold; color: #b8470a; }
+  </style>
+</head>
+<body>
+  <h1>Juguería Valenzuela: catálogo renderizado en el servidor (SSR)</h1>
+
+  <ul>
+    {% for producto in productos %}
+      <li>
+        <strong>{{ producto.nombre }}</strong> —
+        <span class="precio">${{ producto.precio }}</span>
+        (stock: {{ producto.stock }})
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
