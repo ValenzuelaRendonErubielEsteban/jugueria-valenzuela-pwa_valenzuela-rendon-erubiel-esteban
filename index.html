@@ -6,7 +6,6 @@
   <title>Juguería Valenzuela — Jugos y licuados naturales</title>
   <meta name="description" content="Juguería Valenzuela: catálogo de jugos, licuados, smoothies, aguas frescas y frutas. Productos naturales y frescos en Hermosillo, Sonora.">
 
-  <!-- Estas líneas convierten el sitio en una PWA instalable -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#34503a">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -18,7 +17,6 @@
 </head>
 <body>
 
-  <!-- ============ APP SHELL ============ -->
 
   <header class="appbar">
     <div class="appbar__inner">
@@ -36,7 +34,6 @@
 
   <main id="inicio">
 
-    <!-- Portada -->
     <section class="portada">
       <div class="portada__texto">
         <span class="etiqueta">🌿 Hermosillo, Sonora · Productos naturales</span>
@@ -60,7 +57,6 @@
       </div>
     </section>
 
-    <!-- ---- Sobre nosotros (pestañas) ---- -->
     <section class="nosotros" id="nosotros" aria-labelledby="nosotros-titulo">
       <span class="etiqueta">Sobre nosotros</span>
       <h2 id="nosotros-titulo">Frescura de Sonora en cada vaso</h2>
@@ -97,7 +93,6 @@
       </div>
     </section>
 
-    <!-- ---- Producto estrella (lo llena js/interactivo.js con datos del catálogo) ---- -->
     <section class="estrella" id="estrella" aria-label="Producto estrella">
       <div class="estrella__media" id="estrella-media"></div>
       <div class="estrella__texto">
@@ -108,7 +103,6 @@
       </div>
     </section>
 
-    <!-- ---- Sección 1: Catálogo (CSR) ---- -->
     <section class="catalogo" id="catalogo-seccion">
       <h2>Nuestro catálogo</h2>
       <p class="catalogo__intro">Jugos, licuados, smoothies, aguas frescas y fruta.</p>
@@ -136,7 +130,6 @@
       </div>
     </section>
 
-    <!-- ---- Sección 2: Carrito ---- -->
     <section class="carrito" id="carrito-seccion">
       <h2>Carrito</h2>
       <ul id="carrito-lista"></ul>
@@ -149,7 +142,6 @@
       <p id="notif-estado" class="mensaje"></p>
     </section>
 
-    <!-- ---- Sección 3: Ubicación ---- -->
     <section class="ubicacion" id="ubicacion-seccion">
       <h2>Encuéntranos</h2>
       <button id="btn-ubicacion" class="boton-secundario" type="button">Ver mi distancia a la sucursal</button>
@@ -174,6 +166,13 @@
   <script src="js/geolocalizacion.js"></script>
   <script src="js/app.js"></script>
   <script src="js/interactivo.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js")
+        .then((registro) => console.log("Service Worker registrado con éxito:", registro.scope))
+        .catch((error) => console.error("No se pudo registrar el Service Worker:", error));
+    }
+  </script>
 
 </body>
 </html>

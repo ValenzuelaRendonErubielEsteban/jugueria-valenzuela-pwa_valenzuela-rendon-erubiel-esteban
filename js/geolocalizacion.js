@@ -1,26 +1,50 @@
-// geolocalizacion.js — Paso 16: ubicación del cliente y distancia a la sucursal
+const SUCURSAL = {
+  nombre: "Juguería Valenzuela (sucursal UTH)",
+  lat: 29.00921146687666,
+  lon: -110.90377522502918,
+};
 
-// ⚠️ CAMBIA estas coordenadas por las de TU sucursal
-// (Google Maps → clic derecho sobre tu punto → copia las coordenadas)
-const SUCURSAL = { nombre: "Juguería Valenzuela", lat: 29.0729, lng: -110.9559 };
+let mapa = null;     
+let capaRuta = null; 
 
-let mapa = null;
-let marcadorCliente = null;
-let lineaRuta = null;
-
-// Distancia en km entre dos puntos (fórmula de Haversine)
-function distanciaKm(lat1, lng1, lat2, lng2) {
-  const aRad = (grados) => (grados * Math.PI) / 180;
-  const R = 6371; // radio de la Tierra en km
-  const dLat = aRad(lat2 - lat1);
-  const dLng = aRad(lng2 - lng1);
+function calcularDistanciaKm(lat1, lon1, lat2, lon2) {
+  const aRadianes = (grados) => (grados * Math.PI) / 180;
+  const R = 6371; 
+  const dLat = aRadianes(lat2 - lat1);
+  const dLon = aRadianes(lon2 - lon1);
   const a =
     Math.sin(dLat / 2) ** 2 +
-    Math.cos(aRad(lat1)) * Math.cos(aRad(lat2)) * Math.sin(dLng / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(a));
+    Math.cos(aRadianes(lat1)) * Math.cos(aRadianes(lat2)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-// Crea el mapa con Leaflet (si no cargó, por ejemplo sin internet, la app sigue funcionando)
+async function obtenerRuta(origenLat, origenLon) {
+  const url =
+    "https://router.project-osrm.org/route/v1/driving/" +
+    `${origenLon},${origenLat};${SUCURSAL.lon},${SUCURSAL.lat}` +
+    "?overview=full&geometry=geojson";
+
+  const control = new AbortController();
+  const limite = setTimeout(() => control.abort(), 8000); 
+  try {
+    const respuesta = await fetch(url, { signal: control.signal });
+    const datos = await respuesta.json();
+    if (datos.code !== "Ok") return null;
+
+    const ruta = datos.routes[0];
+    return {
+      coords: ruta.geometry.coordinates.map(([lon, lat]) => [lat, lon]),
+      distanciaKm: ruta.distance / 1000,
+      duracionMin: ruta.duration / 60,
+    };
+  } catch (error) {
+    console.warn("No se pudo calcular la ruta por calles:", error.message);
+    return null;
+  } finally {
+    clearTimeout(limite);
+  }
+}
+
 function iniciarMapa() {
   const contenedor = document.getElementById("mapa");
   if (!contenedor) return;
@@ -30,52 +54,70 @@ function iniciarMapa() {
     return;
   }
 
-  mapa = L.map("mapa").setView([SUCURSAL.lat, SUCURSAL.lng], 14);
+  mapa = L.map(contenedor).setView([SUCURSAL.lat, SUCURSAL.lon], 15);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    attribution: "&copy; OpenStreetMap",
+    attribution: "&copy; colaboradores de OpenStreetMap",
   }).addTo(mapa);
+  capaRuta = L.layerGroup().addTo(mapa);
 
-  L.marker([SUCURSAL.lat, SUCURSAL.lng]).addTo(mapa).bindPopup(`<strong>${SUCURSAL.nombre}</strong><br>Nuestra sucursal`);
+  L.marker([SUCURSAL.lat, SUCURSAL.lon]).addTo(mapa).bindPopup(`<strong>${SUCURSAL.nombre}</strong>`);
 }
 
-function mostrarUbicacion(posicion) {
-  const { latitude, longitude } = posicion.coords;
-  const km = distanciaKm(latitude, longitude, SUCURSAL.lat, SUCURSAL.lng);
-  const texto = document.getElementById("ubicacion-texto");
+function dibujarRuta(lat, lon, coordsRuta) {
+  if (!mapa) return;
+  capaRuta.clearLayers();
 
-  const ruta = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${SUCURSAL.lat},${SUCURSAL.lng}`;
-  texto.innerHTML = `Estás a <strong>${km.toFixed(1)} km</strong> de la sucursal (en línea recta). <a href="${ruta}" target="_blank" rel="noopener">Ver ruta en Google Maps</a>`;
+  const hayRuta = Array.isArray(coordsRuta) && coordsRuta.length > 0;
+  const punto = [lat, lon];
+  const sucursal = [SUCURSAL.lat, SUCURSAL.lon];
 
-  if (mapa) {
-    if (marcadorCliente) mapa.removeLayer(marcadorCliente);
-    if (lineaRuta) mapa.removeLayer(lineaRuta);
-    marcadorCliente = L.marker([latitude, longitude]).addTo(mapa).bindPopup("Tú estás aquí").openPopup();
-    lineaRuta = L.polyline([[latitude, longitude], [SUCURSAL.lat, SUCURSAL.lng]], { color: "#f07010" }).addTo(mapa);
-    mapa.fitBounds(lineaRuta.getBounds(), { padding: [40, 40] });
-  }
-}
+  L.marker(punto).addTo(capaRuta).bindPopup("Tú estás aquí").openPopup();
+  L.polyline(
+    hayRuta ? coordsRuta : [punto, sucursal],
+    hayRuta ? { color: "#34503a", weight: 5 } : { color: "#b4532a", weight: 3, dashArray: "6 6" }
+  ).addTo(capaRuta);
 
-function errorUbicacion(error) {
-  const mensajes = {
-    1: "No diste permiso para usar tu ubicación.",
-    2: "No se pudo determinar tu ubicación.",
-    3: "Tardó demasiado en obtener tu ubicación. Intenta de nuevo.",
-  };
-  document.getElementById("ubicacion-texto").textContent = mensajes[error.code] || "No se pudo obtener tu ubicación.";
+  mapa.fitBounds(L.latLngBounds([punto, sucursal]), { padding: [30, 30] });
 }
 
 function ubicarCliente() {
   const texto = document.getElementById("ubicacion-texto");
+
   if (!("geolocation" in navigator)) {
-    texto.textContent = "Tu navegador no soporta geolocalización.";
+    texto.textContent = "Este dispositivo no reporta ubicación.";
     return;
   }
   texto.textContent = "Buscando tu ubicación…";
-  navigator.geolocation.getCurrentPosition(mostrarUbicacion, errorUbicacion, {
-    enableHighAccuracy: true,
-    timeout: 10000,
-  });
+
+  navigator.geolocation.getCurrentPosition(
+    async (posicion) => {
+      const { latitude, longitude } = posicion.coords;
+      const enlace =
+        `https://www.openstreetmap.org/directions?from=${latitude}%2C${longitude}` +
+        `&to=${SUCURSAL.lat}%2C${SUCURSAL.lon}`;
+
+      texto.textContent = "Calculando la ruta hasta la sucursal…";
+      const ruta = await obtenerRuta(latitude, longitude);
+      dibujarRuta(latitude, longitude, ruta ? ruta.coords : null);
+
+      if (ruta) {
+        texto.innerHTML =
+          `Ruta hasta ${SUCURSAL.nombre}: <strong>${ruta.distanciaKm.toFixed(1)} km</strong> · ` +
+          `~${Math.round(ruta.duracionMin)} min en auto. ` +
+          `<a href="${enlace}" target="_blank" rel="noopener">Abrir en el mapa</a>`;
+      } else {
+        const km = calcularDistanciaKm(latitude, longitude, SUCURSAL.lat, SUCURSAL.lon);
+        texto.innerHTML =
+          `No se pudo calcular la ruta por calles; en línea recta estás a <strong>${km.toFixed(1)} km</strong> ` +
+          `de ${SUCURSAL.nombre}. <a href="${enlace}" target="_blank" rel="noopener">Abrir en el mapa</a>`;
+      }
+    },
+    (error) => {
+      texto.textContent = "No se pudo obtener tu ubicación: " + error.message;
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
 }
 
 document.addEventListener("DOMContentLoaded", () => {
