@@ -78,3 +78,14 @@ La app se abre desde cualquier navegador y también se puede instalar como si fu
 - Notificaciones del navegador (botón que pide permiso).
 - Ubicación del cliente con ruta por calles hasta la sucursal (Leaflet + OSRM).
 - Service Worker generado con Workbox y `manifest.json` con íconos de 192 y 512 px.
+
+## Versión publicada (avance 4)
+
+### index.html en GitHub Pages
+![Código fuente publicado](docs/captura-pages-index.png)
+
+### manifest.json en GitHub Pages
+![manifest.json publicado](docs/captura-pages-manifest.png)
+
+### Mi app instalada en el celular
+![App instalada en el celular](docs/captura-celular.png)
