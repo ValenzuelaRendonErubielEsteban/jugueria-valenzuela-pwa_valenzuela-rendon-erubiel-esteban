@@ -17,6 +17,7 @@ PWA de ventas de la Unidad 2 (Aplicaciones Web Progresivas): catálogo de jugos,
 | 2 | d66d2b7 | 16/10/2026 |
 | 3 | 10aaef3 | 25/10/2026 |
 | 4 | (se escribe en el reporte PDF) | 01/11/2026 |
+| Recuperación U1 | Entorno verificado y reportes | 02/11/2026 |
 
 ## Comparación SSR vs CSR
 
